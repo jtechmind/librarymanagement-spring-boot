@@ -19,10 +19,6 @@ public class BookController {
     }
 
     // Save new book
-    @PostMapping("/save")
-    public Book saveBook(@RequestBody Book book){
-       return bookService.createBook(book);
-    }
     @PostMapping("/")
     public ResponseEntity<Book> addBook(@RequestBody Book book){
         return ResponseEntity.ok(bookService.createBook(book));
@@ -30,7 +26,7 @@ public class BookController {
 
     // Get a book by ID
     @GetMapping("/{id}")
-    public Book getById(@RequestParam Long id){
-        return bookService.getBookById(id);
+    public ResponseEntity<Book> getById(@PathVariable Long id){
+        return ResponseEntity.ok(bookService.getBookById(id));
     }
 }
