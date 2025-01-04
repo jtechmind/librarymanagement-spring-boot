@@ -24,26 +24,31 @@ public class BookServiceImp implements BookService{
 
     @Override
     public List<Book> getAllBook() {
-        return null;
+        return bookRepository.findAll();
     }
 
     @Override
-    public Book updateBook(Long id) {
-        return null;
+    public Book updateBook(Long id,Book updatedBook) {
+        Book existingBook = getBookById(id);
+        existingBook.setTitle(updatedBook.getTitle());
+        existingBook.setAuthor(updatedBook.getAuthor());
+        existingBook.setGenre(updatedBook.getGenre());
+        existingBook.setQuantity(updatedBook.getQuantity());
+        return bookRepository.save(existingBook);
     }
 
     @Override
     public void deleteBook(Long id) {
-
+        bookRepository.deleteById(id);
     }
 
     @Override
     public List<Book> findBooksByAuthor(String author) {
-        return null;
+        return bookRepository.findByAuthor(author);
     }
 
     @Override
     public List<Book> findBooksByTitle(String title) {
-        return null;
+        return bookRepository.findByTitle(title);
     }
 }
