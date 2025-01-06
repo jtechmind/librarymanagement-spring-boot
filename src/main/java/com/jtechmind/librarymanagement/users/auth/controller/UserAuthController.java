@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/v1/users/auth")
-public class AuthController {
+public class UserAuthController {
 
     @Autowired
     UserRepository userRepository;
