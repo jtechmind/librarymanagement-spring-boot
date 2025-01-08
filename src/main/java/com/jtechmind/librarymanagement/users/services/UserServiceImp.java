@@ -27,4 +27,9 @@ public class UserServiceImp implements UserService{
         return repository.findById(id)
                 .orElseThrow(()-> new RuntimeException("User Not Found"));
     }
+
+    @Override
+    public void deleteUserById(Long id) {
+        repository.deleteById(id);
+    }
 }
