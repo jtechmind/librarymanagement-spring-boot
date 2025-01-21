@@ -2,6 +2,7 @@ package com.jtechmind.librarymanagement.books.services;
 
 import com.jtechmind.librarymanagement.books.models.Book;
 import com.jtechmind.librarymanagement.books.repositories.BookRepository;
+import com.jtechmind.librarymanagement.exceptions.BookNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +20,7 @@ public class BookServiceImp implements BookService{
     @Override
     public Book getBookById(Long id) {
         return bookRepository.findById(id)
-                .orElseThrow(()-> new RuntimeException("Book not found by id: "+id));
+                .orElseThrow(()-> new BookNotFoundException("Book not found by id: "+id));
     }
 
     @Override
