@@ -2,11 +2,14 @@ package com.jtechmind.librarymanagement.books.controllers;
 
 import com.jtechmind.librarymanagement.books.models.Book;
 import com.jtechmind.librarymanagement.books.services.BookService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1/books")
@@ -16,7 +19,13 @@ public class BookController {
 
     // Save new book
     @PostMapping("/")
-    public ResponseEntity<Book> addBook(@RequestBody Book book){
+    public ResponseEntity<?> addBook(@Valid @RequestBody Book book, BindingResult result){
+        if (result.hasErrors()) {
+            String errors = result.getAllErrors().stream()
+                    .map(error -> error.getDefaultMessage())
+                    .collect(Collectors.joining(", "));
+            return ResponseEntity.badRequest().body(errors);
+        }
         return ResponseEntity.ok(bookService.createBook(book));
     }
 
