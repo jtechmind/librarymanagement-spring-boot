@@ -26,7 +26,8 @@ public class SecurityConfig {
        return http.csrf(csrf-> csrf.disable())
                .authorizeHttpRequests((auth)-> auth.requestMatchers("/api/v1/users/auth/**").permitAll()
                        .requestMatchers("/api/v1/users/**").permitAll()
-                       .anyRequest().authenticated())
+                       .requestMatchers("/api/v1/catalog/**").permitAll()
+                       .anyRequest().permitAll())
                .userDetailsService(customUserDetailsService)
                .httpBasic(Customizer.withDefaults())
                .build();
